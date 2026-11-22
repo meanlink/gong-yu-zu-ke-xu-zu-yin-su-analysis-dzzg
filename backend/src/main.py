@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 import os
-from .lease_desk import billing_routes, offer_routes
+from .lease_desk import billing_routes, offer_routes, transfer_routes
 from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from .db import init_db, query, one, execute
@@ -12,6 +12,7 @@ from .services import audit, survey_rows, build_followups, get_analysis
 app = FastAPI(title="公寓租客续租因素分析")
 app.include_router(resident_router)
 app.include_router(offer_routes.router)
+app.include_router(transfer_routes.router)
 app.include_router(billing_routes.router)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
